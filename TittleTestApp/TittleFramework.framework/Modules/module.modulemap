@@ -1,0 +1,6 @@
+framework module TittleFramework {
+  umbrella header "TittleFramework.h"
+
+  export *
+  module * { export * }
+}

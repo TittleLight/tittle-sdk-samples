@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8C7D0530213D219A008F581E /* FunctionsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C7D052F213D219A008F581E /* FunctionsTableViewController.swift */; };
+		8C7D0533213D22A7008F581E /* TittleFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C7D052D213D214F008F581E /* TittleFramework.framework */; };
+		8C7D0534213D22A7008F581E /* TittleFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8C7D052D213D214F008F581E /* TittleFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8CC706822137D5CF00C59FEA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC706812137D5CF00C59FEA /* AppDelegate.swift */; };
 		8CC706842137D5CF00C59FEA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CC706832137D5CF00C59FEA /* ViewController.swift */; };
 		8CC706872137D5CF00C59FEA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CC706852137D5CF00C59FEA /* Main.storyboard */; };
@@ -14,7 +17,23 @@
 		8CC7068C2137D5D000C59FEA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8CC7068A2137D5D000C59FEA /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		8CC706972137D67C00C59FEA /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8C7D0534213D22A7008F581E /* TittleFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		8C7D052D213D214F008F581E /* TittleFramework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TittleFramework.framework; sourceTree = "<group>"; };
+		8C7D052F213D219A008F581E /* FunctionsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FunctionsTableViewController.swift; sourceTree = "<group>"; };
 		8CC7067E2137D5CF00C59FEA /* TittleTestApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TittleTestApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8CC706812137D5CF00C59FEA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8CC706832137D5CF00C59FEA /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,17 +48,26 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C7D0533213D22A7008F581E /* TittleFramework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8C7D0531213D22A1008F581E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8CC706752137D5CF00C59FEA = {
 			isa = PBXGroup;
 			children = (
 				8CC706802137D5CF00C59FEA /* TittleTestApp */,
 				8CC7067F2137D5CF00C59FEA /* Products */,
+				8C7D0531213D22A1008F581E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -54,8 +82,10 @@
 		8CC706802137D5CF00C59FEA /* TittleTestApp */ = {
 			isa = PBXGroup;
 			children = (
+				8C7D052D213D214F008F581E /* TittleFramework.framework */,
 				8CC706812137D5CF00C59FEA /* AppDelegate.swift */,
 				8CC706832137D5CF00C59FEA /* ViewController.swift */,
+				8C7D052F213D219A008F581E /* FunctionsTableViewController.swift */,
 				8CC706852137D5CF00C59FEA /* Main.storyboard */,
 				8CC706882137D5D000C59FEA /* Assets.xcassets */,
 				8CC7068A2137D5D000C59FEA /* LaunchScreen.storyboard */,
@@ -74,6 +104,7 @@
 				8CC7067A2137D5CF00C59FEA /* Sources */,
 				8CC7067B2137D5CF00C59FEA /* Frameworks */,
 				8CC7067C2137D5CF00C59FEA /* Resources */,
+				8CC706972137D67C00C59FEA /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -135,6 +166,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8C7D0530213D219A008F581E /* FunctionsTableViewController.swift in Sources */,
 				8CC706842137D5CF00C59FEA /* ViewController.swift in Sources */,
 				8CC706822137D5CF00C59FEA /* AppDelegate.swift in Sources */,
 			);
@@ -282,6 +314,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EXEHSPZF3F;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/TittleTestApp",
+				);
 				INFOPLIST_FILE = TittleTestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -300,6 +337,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EXEHSPZF3F;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/TittleTestApp",
+				);
 				INFOPLIST_FILE = TittleTestApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

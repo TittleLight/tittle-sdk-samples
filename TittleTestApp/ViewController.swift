@@ -7,12 +7,18 @@
 //
 
 import UIKit
+import TittleFramework
+// TittleFramework is using CocoaAsyncSocket for socket connections.
+// So your controller needs to implement GCDAsyncSocketDelegate
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        
+        let logger = HelloLogger()
+        logger.hello(withText: "world")
     }
 
     override func didReceiveMemoryWarning() {
