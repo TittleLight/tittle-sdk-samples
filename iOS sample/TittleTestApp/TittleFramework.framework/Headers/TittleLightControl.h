@@ -41,7 +41,7 @@
 @property (assign, nonatomic) int currentMode;
 @property (strong, nonatomic) TittleData *theConfigTittle;
 
-- (void) setLightModeWithR: (int)r G:(int)g B:(int)b intensity: (int)intensity;
+- (void) lightModeWithR: (uint8_t)r g:(uint8_t)g b:(uint8_t)b intensity: (uint8_t)intensity;
 - (void) connectTittleWithIP: (NSString *)ip;
 - (void) disconnectTittle;
 - (void) startSearchingTittles;

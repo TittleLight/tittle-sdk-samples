@@ -83,14 +83,13 @@ class FunctionsTableViewController: UITableViewController, TittleLightControlDel
     func setLightMode(isOn: Bool!) {
         
         // get color RGB and intensity from text fields ot set to switch off
-        let colorR: Int32! = isOn ? Int32(colorRTextField.text!) ?? 0 : 0
-        let colorG: Int32! = isOn ? Int32(colorGTextField.text!) ?? 0 : 0
-        let colorB: Int32! = isOn ? Int32(colorBTextField.text!) ?? 0 : 0
-        let intensity: Int32! = isOn ? Int32(intensityTextField.text!) ?? 0 : 0
-        
+        let colorR: UInt8! = isOn ? UInt8(colorRTextField.text!) ?? 0 : 0
+        let colorG: UInt8! = isOn ? UInt8(colorGTextField.text!) ?? 0 : 0
+        let colorB: UInt8! = isOn ? UInt8(colorBTextField.text!) ?? 0 : 0
+        let intensity: UInt8! = isOn ? UInt8(intensityTextField.text!) ?? 0 : 0
         statusLabel.text = "sending data"
         // Using Tittle SDK to send the data
-        tittleLightCtrl.setLightModeWithR(colorR, g: colorG, b: colorB, intensity: intensity)
+        tittleLightCtrl.lightMode(withR: colorR, g: colorG, b: colorB, intensity: intensity)
     }
     
     
