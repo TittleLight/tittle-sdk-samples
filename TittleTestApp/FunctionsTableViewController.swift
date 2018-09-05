@@ -9,10 +9,9 @@
 import UIKit
 import TittleFramework
 // TittleFramework is using CocoaAsyncSocket for socket connections.
-// So your controller needs to implement GCDAsyncSocketDelegate
 
 
-class FunctionsTableViewController: UITableViewController, GCDAsyncSocketDelegate {
+class FunctionsTableViewController: UITableViewController, TittleLightControlDelegate {
     
     @IBOutlet weak var colorRTextField: UITextField!
     @IBOutlet weak var colorGTextField: UITextField!
@@ -22,32 +21,33 @@ class FunctionsTableViewController: UITableViewController, GCDAsyncSocketDelegat
     
     // init TittleLightControl
     let tittleLightCtrl = TittleLightControl()
-    var lightModePackage: Data?
-    
-    var clientSocket:GCDAsyncSocket!
-    var serverPort:UInt16 = 0
-    var serverIP: String = "192.168.31.142"
+    var serverIP: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(FunctionsTableViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
+        // delegate of TittleLightControl
+        tittleLightCtrl.delegate = self
         
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        let helloLogger = HelloLogger()
-        helloLogger.hello(withText: "World")
-        
-        //        connectToTittle(ip: serverIP, port: serverPort)
         statusLabel.text = "Connecting Tittle"
-        connectToTittle(ip: serverIP)
+        connectToTittle(ip: serverIP!)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tittleLightCtrl.disconnectTittle()
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     // MARK: - Table view data source
@@ -61,61 +61,6 @@ class FunctionsTableViewController: UITableViewController, GCDAsyncSocketDelegat
         // #warning Incomplete implementation, return the number of rows
         return 5
     }
-    
-    /*
-     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-     let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-     
-     // Configure the cell...
-     
-     return cell
-     }
-     */
-    
-    /*
-     // Override to support conditional editing of the table view.
-     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the specified item to be editable.
-     return true
-     }
-     */
-    
-    /*
-     // Override to support editing the table view.
-     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-     if editingStyle == .delete {
-     // Delete the row from the data source
-     tableView.deleteRows(at: [indexPath], with: .fade)
-     } else if editingStyle == .insert {
-     // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-     }
-     }
-     */
-    
-    /*
-     // Override to support rearranging the table view.
-     override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-     
-     }
-     */
-    
-    /*
-     // Override to support conditional rearranging of the table view.
-     override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-     // Return false if you do not want the item to be re-orderable.
-     return true
-     }
-     */
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
     // MARK: - Button Actions
     @IBAction func changeColorButtonDidPressed(_ sender: UIButton) {
@@ -132,7 +77,7 @@ class FunctionsTableViewController: UITableViewController, GCDAsyncSocketDelegat
     
     // MARK: Tittle framework
     func connectToTittle(ip: String) {
-        tittleLightCtrl.connectTittle(withController: self, ip: ip)
+        tittleLightCtrl.connectTittle(withIP: ip)
     }
     
     func setLightMode(isOn: Bool!) {
@@ -145,11 +90,11 @@ class FunctionsTableViewController: UITableViewController, GCDAsyncSocketDelegat
         
         statusLabel.text = "sending data"
         // Using Tittle SDK to send the data
-        tittleLightCtrl.setLightModeInController(self, r: colorR, g: colorG, b: colorB, intensity: intensity)
+        tittleLightCtrl.setLightModeWithR(colorR, g: colorG, b: colorB, intensity: intensity)
     }
     
     
-    // MARK: GCDAsyncSocketDelegate
+    // MARK: TittleLightControl delegate
     
     func socket(_ sock:GCDAsyncSocket, didConnectToHost host:String, port:UInt16) {
         DispatchQueue.main.async{
@@ -164,23 +109,19 @@ class FunctionsTableViewController: UITableViewController, GCDAsyncSocketDelegat
     }
     
     
-    func socket(_ sock:GCDAsyncSocket, didRead data:Data, withTag tag:Int) {
-        //        print("received data - ", data as NSData)
-        let ackCode = tittleLightCtrl.getAckCode(from: data);
-        if (tag == TITTLE_COMMAND_LIGHT_MODE) {
-            if (ackCode != TITTLE_ACK_SUCCESS) {
-                DispatchQueue.main.async{
-                    self.setLightMode(isOn: true)
-                    self.statusLabel.text = "Re-sending data to Tittle"
-                }
-            }else {
-                DispatchQueue.main.async{
-                    self.statusLabel.text = "Received data from Tittle"
-                }
+    func didReceivedResponsed(fromLightMode ackCode: Int32) {
+        if (ackCode != TITTLE_ACK_SUCCESS) {
+            DispatchQueue.main.async{
+                //resend
+                self.setLightMode(isOn: true)
+                self.statusLabel.text = "Re-sending data to Tittle"
+            }
+        }else {
+            DispatchQueue.main.async{
+                self.statusLabel.text = "Received data from Tittle"
             }
         }
     }
-    
     
     
 }

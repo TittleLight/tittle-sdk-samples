@@ -13,8 +13,6 @@
     
     GCDAsyncSocket *socket;
     
-    id currentController;
-    
     NSDate *socketCreateDate;
     
     NSString *connectIP;
