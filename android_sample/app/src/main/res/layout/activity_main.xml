@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/firstPara"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Press Tittle power button 5 seconds continuously until the lights turn white. Then press for 3 seconds more until the lights turn yellow."
+        android:layout_marginBottom="10dp"
+        />
+    <TextView
+        android:id="@+id/wifiCredentials"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Connect your phone's wifi to Tittle-AP network. Enter name and password of the network to which you want to connect your Tittle to. Then press connect to wifi."
+        />
+    <EditText
+        android:id="@+id/ssidName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:height="40dp"
+        />
+    <EditText
+        android:id="@+id/wifiPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:height="40dp"
+        />
+    <Button
+        android:id="@+id/connectWifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Connect to wifi"
+        />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set ip of Tittle and press 'Set random color' to send command to Tittle in your network."
+        android:layout_marginBottom="10dp"
+        />
+    <EditText
+        android:id="@+id/tittleIp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:height="40dp"
+        android:text="192.168.1.186"
+        />
+    <Button
+        android:id="@+id/randomColorButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set random color"
+        />
+    <Button
+        android:id="@+id/scanForTittles"
+        android:text="Scan for Tittles in your wifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        />
+</LinearLayout>
